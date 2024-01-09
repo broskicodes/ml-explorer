@@ -17,11 +17,90 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: url("/assets/paper-bg-1.jpg");
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+}
+
+.sidebar {
+  outline: 1px solid #000;
+  height: 100vh;
+  width: 25%;
+  position: relative;
+}
+.sidebar-header {
+  height: 25%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.search-bar {
+  height: 32px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(164,161,148, 0.3);
+  outline: 1px solid #000;
+}
+.search-bar::placeholder {
+  color: rgba(0, 0, 0, 0.6);
+}
+.sidebar-content {
+  border-top: 1px solid #000;
+  height: 75%;
+  width: 100%;
+  position: absolute;
+  top: calc(25% - 64px);
+  left: 0;
+  overflow-y: scroll;
+}
+.sidebar-item {
+  height: fit-content;
+  width: 100%;
+  border-bottom: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 16px;
+}
+.sidebar-item:hover {
+  background-color: rgba(164,161,148, 0.5);
+}
+.sidebar-item >*:not(:last-child) {
+  padding-bottom: 4px;
+}
+
+.footer {
+  outline: 1px solid #000;
+  background-color: rgba(164,161,148, 0.5);
+  height: 64px;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+}
+.footer-content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(39, 38, 35, 0.2);; /* You can change the color as needed */
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(126, 126, 126, 0.6); /* You can change the color as needed */
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(92, 92, 92, 0.6); /* You can change the color as needed */
 }
