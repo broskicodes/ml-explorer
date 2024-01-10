@@ -1,6 +1,37 @@
+"use client";
+
+import { Transformer } from "@/components/Transformer";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
+interface Concept {
+  name: string
+  description: string
+  component: React.FC
+}
 
 export default function Home() {
+  const [selectedConcept, setSelectedConcept] = useState<Concept | null>(null)
+
+  const params = useSearchParams();
+
+  const concepts = useMemo(() => ({
+    transformer: {
+      name: "Transformer",
+      description: "Lorem ipsum dolor sit amet consectetur. Varius porta augue neque morbi. Suscipit.",
+      component: Transformer      
+    }
+  }), [])
+
+  useEffect(() => {
+    const section = params.get("section");
+    if (section) {
+      // @ts-ignore
+      setSelectedConcept(concepts[section] ?? null)
+    }
+  }, [])
+
   return (
     <div className="">
       <div className="sidebar">
@@ -9,17 +40,21 @@ export default function Home() {
           <input className="search-bar pl-2" type="text" placeholder="Search" />
         </div>
         <div className="sidebar-content">
-          {Array(4).fill(0).map((_, i) => (
-            <div key={i} className="sidebar-item">
-              <p className="font-bold text-2xl">Transformer</p>
-              <p className="pl-2">Lorem ipsum dolor sit amet consectetur. Varius porta augue neque morbi. Suscipit.</p>
-            </div> 
+          {Object.values(concepts).map((concept, i) => (
+            <Link key={i} href={`?section=${concept.name.toLowerCase()}`} className={`sidebar-item ${concept.name === selectedConcept?.name ? "sidebar-item-selected" : ""}`} onClick={() => setSelectedConcept(concept)}>
+              <p className="font-bold text-2xl">{concept.name}</p>
+              <p className="pl-2">{concept.description}</p>
+            </Link> 
           ))}  
         </div>
       </div>
+      <div className="main">
+        {selectedConcept && <selectedConcept.component />}
+      </div>
       <div className="footer"> 
-        <div className="footer-content">
-          <Link href="" className="absolute right-8 top-5">Contribute</Link>
+        <div className="footer-content space-x-4">
+          <Link href="https://www.buymeacoffee.com/broskicodes" target="_blank" className="">Support</Link>
+          <Link href="" className="">Contribute</Link>
         </div>
       </div>
     </div>
